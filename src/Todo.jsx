@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useTodoStore } from "./stores/useTodoStore";
 import axios from "axios";
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-  async function fetchTodos() {
-    const { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos"
-    );
-    setTodos(data);
+  const { todos, fetchTodos } = useTodoStore();
+
+  const corsRequest = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/todos"
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
     fetchTodos();
+    corsRequest();
   }, []);
 
   return (
