@@ -9,7 +9,7 @@ export const useTodoStore = create((set, get) => ({
     set({ loading: true, error: null });
     try {
       const response = await axios.get(
-        "/todos"
+        "https://jsonplaceholder.typicode.com/todos"
       );
       set({ todos: response.data, loading: false });
     } catch (error) {
@@ -19,7 +19,7 @@ export const useTodoStore = create((set, get) => ({
   addTodo: async (todo) => {
     try {
       const response = await axios.post(
-        "/todos",
+        "https://jsonplaceholder.typicode.com/todos",
         todo
       );
       set({ todos: [...get().todos, response.data] });
